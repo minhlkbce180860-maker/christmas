@@ -323,6 +323,7 @@
             lCtx.fillStyle = '#FF69B4'; lCtx.textAlign = 'center';
             lCtx.shadowColor = "#FF1493"; lCtx.shadowBlur = 40; 
             lCtx.fillText("DEAR TUYET DAN", 512, 130);
+            lCtx.font = 'bold 90px "Segoe UI", sans-serif';
             lCtx.fillText("FUTURE GIRLFRIEND", 512, 250);
             const loveTex = new THREE.CanvasTexture(loveCanvas);
             const loveMat = new THREE.MeshBasicMaterial({ map: loveTex, transparent: true, blending: THREE.AdditiveBlending });
@@ -481,13 +482,16 @@
 
             const video = document.getElementsByClassName('input_video')[0];
             const canvas = document.getElementById('camera-preview');
+            canvas.width = 120;
+            canvas.height = 90;
             const ctx = canvas.getContext('2d');
             
             const hands = new Hands({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`});
             hands.setOptions({ maxNumHands: 2, modelComplexity: 1, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
 
             hands.onResults(results => {
-                ctx.clearRect(0,0,100,75); ctx.drawImage(results.image, 0, 0, 100, 75);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
 
                 // --- Hand Logic  ---
                 if (results.multiHandLandmarks.length === 2) {
